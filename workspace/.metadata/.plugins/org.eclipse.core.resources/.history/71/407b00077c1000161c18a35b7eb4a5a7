@@ -1,5 +1,4 @@
 import javax.swing.JFrame;
-
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -21,7 +20,7 @@ public class VistaMemoria extends JFrame implements MouseListener {
 		public VistaMemoria()
 		{
 			
-			panel.setLayout(new GridLayout(4,4,5,5) );
+			panel.setLayout(new GridLayout(4,4,10,10) );
 			control.setColumnas(4);
 			control.setFilas(4);
 			tablero = control.generarMatriz();
@@ -40,10 +39,7 @@ public class VistaMemoria extends JFrame implements MouseListener {
 					panel.add(tablero[i][j]);
 					tablero[i][j].addMouseListener(this);
 					tablero[i][j].setIcon(imagen);
-					
-					tablero[i][j].setBackground(Color.WHITE);
 					System.out.print(" "+tablero[i][j].getID());
-					
 					
 				}
 				System.out.println();
@@ -61,23 +57,18 @@ public class VistaMemoria extends JFrame implements MouseListener {
 		@Override
 		public void mouseClicked(MouseEvent e)
 		{
-			
-			
+			int aux1 = 0;
+			int aux2 = 0;
+			int contador=0;
 			imagen = new ImageIcon("src/images/"+((Ficha) e.getComponent()).getID()+".png");
 			// TODO Auto-generated method stub
 			((AbstractButton) e.getComponent()).setIcon(imagen);
-			/*try {
-				Thread.sleep(2000);
-			} catch (InterruptedException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}*/
+		
 			((Ficha) e.getComponent()).setEstado(true);
-			
+		
 		
 			if(control.compararFichas(control.buscar()) == true )
 			{
-				
 				for(int i = 0; i<control.getFilas();i++)
 				{
 					for(int j = 0; j< control.getColumnas();j++)
@@ -86,7 +77,12 @@ public class VistaMemoria extends JFrame implements MouseListener {
 						{
 							
 							tablero[i][j].setEstado(false);
-						
+							try {
+								Thread.sleep(2000);
+							} catch (InterruptedException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
 							tablero[i][j].setVisible(false);
 						}
 					}

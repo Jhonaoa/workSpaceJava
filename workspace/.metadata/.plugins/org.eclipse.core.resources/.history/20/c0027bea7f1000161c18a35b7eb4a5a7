@@ -21,7 +21,7 @@ public class VistaMemoria extends JFrame implements MouseListener {
 		public VistaMemoria()
 		{
 			
-			panel.setLayout(new GridLayout(4,4,5,5) );
+			panel.setLayout(new GridLayout(4,4,10,10) );
 			control.setColumnas(4);
 			control.setFilas(4);
 			tablero = control.generarMatriz();

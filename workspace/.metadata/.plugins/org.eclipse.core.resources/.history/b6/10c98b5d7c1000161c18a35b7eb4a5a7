@@ -105,6 +105,8 @@ public class ControlMemoria  {
 	    	 
 	      }
 		
+		System.out.print(aux[0]);
+		System.out.print(aux[1]);
 		return aux;
 		
 	}
