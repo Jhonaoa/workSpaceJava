@@ -1,0 +1,60 @@
+import javax.swing.JFrame;
+
+
+public class Principal {
+	private static String[] prueba = {"",""};	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		VistaAhoracado ventana = new VistaAhoracado();
+	    ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	    
+	   ControlAhorcado control = new ControlAhorcado();
+	    
+	    //control.seleccionarPalabra();
+	    
+	    //control.validarLetra("a");
+	    
+		//control.posiciones();
+		//System.out.print(control.posiciones()[1]);
+	    //ventana.modificarString("a",control.posiciones());
+	    
+	    
+	   
+	    
+	    
+	    
+	
+
+}
+
+
+int cantidadLetras = 5;
+
+int []posiciones = new int [3];
+
+posiciones[0]= 0;
+
+public String modificarString(String letra, int[]pos)
+{
+	
+	for(int i = 0 ; i <cantidadLetras; i++)
+	{
+		
+		 for(int j = 0; j< pos.length;j++)
+		{
+			
+			if(i == pos[j])
+			{
+				palabra_rayas += letra;
+			}
+			else
+			{
+				palabra_rayas = "-";
+			}
+			
+		}
+	}
+	
+	return palabra_rayas;
+	//System.out.print(palabra_rayas);
+}

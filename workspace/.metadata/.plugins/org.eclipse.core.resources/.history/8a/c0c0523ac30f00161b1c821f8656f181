@@ -1,0 +1,15 @@
+import java.lang.Math;
+
+
+
+public class ControlMemoria {
+
+	private Ficha[][] matiz;
+	
+	private int columnas;
+	
+	private int filas;
+	
+	
+	
+}

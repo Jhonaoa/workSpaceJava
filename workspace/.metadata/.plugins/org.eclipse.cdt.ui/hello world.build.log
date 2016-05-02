@@ -1,0 +1,7 @@
+18:32:38 **** Incremental Build of configuration Debug for project hello world ****
+Info: Internal Builder is used for build
+link /debug /nologo "/OUT:hello world.exe" main.obj 
+LINK : fatal error LNK1561: se debe definir el punto de entrada
+
+18:32:38 Build Finished (took 331ms)
+

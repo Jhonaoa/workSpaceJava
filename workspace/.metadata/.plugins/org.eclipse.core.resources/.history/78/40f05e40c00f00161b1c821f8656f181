@@ -1,0 +1,20 @@
+import javax.swing.JButton;
+
+
+
+public class Ficha extends JButton {
+	
+	private boolean estadoFicha;
+	private int iD;
+	
+	public void setEstado(boolean estado)
+	{
+		estadoFicha = estado;
+	}
+	
+	public void setID(int id)
+	{
+		iD = id;
+	}
+
+}

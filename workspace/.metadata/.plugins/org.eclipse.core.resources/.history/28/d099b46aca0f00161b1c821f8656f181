@@ -1,0 +1,40 @@
+import java.lang.Math;
+
+
+
+public class ControlMemoria {
+
+	private Ficha[][] matriz;
+	
+	private int columnas;
+	
+	private int filas;
+	
+	
+	public ControlMemoria()
+	{
+		
+		columnas = 4;
+		filas = 4;
+		
+		matriz = new Ficha[filas][];
+		for(int i = 0; i< columnas;i++)
+		{
+			matriz[i]= new Ficha[columnas];
+		}
+		
+		
+		
+	}
+	
+	
+	public void modificarMatriz()
+	{
+		int aleatorio = 0 ;
+		
+		aleatorio = (int)(Math.random()*8+1); 
+	}
+	
+	
+	
+}

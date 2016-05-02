@@ -1,0 +1,6 @@
+
+public class ControlMemoria {
+
+	private int[][] matiz;
+	
+}
