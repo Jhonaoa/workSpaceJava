@@ -1,0 +1,28 @@
+import java.net.Socket;
+import java.util.Formatter;
+import java.util.Scanner;
+
+public class Jugador implements Runnable{
+
+	private Socket conexion; // conexión con el cliente
+	private ObjectIntputStream entrada; // entrada del cliente
+	private Formatter salida; // salida al cliente
+	private int numeroJugador; // identifica al Jugador
+	private String marca; // marca para este jugador
+	private boolean suspendido = true; // indica si el subproceso está suspendido
+
+	
+	
+	public Jugador (Socket socket)
+	{
+		conexion = socket;
+		entrada = ObjectIntputStream(conexion.getOutputStream());
+	}
+	
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

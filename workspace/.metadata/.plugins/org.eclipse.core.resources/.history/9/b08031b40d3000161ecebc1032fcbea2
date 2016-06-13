@@ -1,0 +1,127 @@
+import javax.swing.*;
+
+import java.util.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.lang.Thread;
+
+public class ClienteBuscaMinas extends JFrame implements MouseListener
+{
+
+	private Container contenedor;
+	private JPanel panel;
+	private JPanel panel2;	
+	private JPanel panel3;	
+	private ArrayList <JButton> listaCasillas = new ArrayList <JButton> () ;
+	private ArrayList <ImageIcon> listaImagenes = new ArrayList <ImageIcon> () ;	
+	private BorderLayout organizadorBorde;
+	private GridLayout organizadorTablero;
+
+	public ClienteBuscaMinas()
+	{
+		super("Juego Busca Oro");
+		contenedor = getContentPane();
+		panel = new JPanel();
+		panel2 = new JPanel();
+		panel3= new JPanel();
+		organizadorBorde = new BorderLayout();
+		organizadorTablero = new GridLayout(10,10,5,5);
+		panel.setLayout(organizadorBorde);
+		panel2.setLayout(organizadorTablero);
+		
+
+			
+		//Crea 16 botones con diferentes colores y los agrega en la lista de casillas
+		
+		int contador=0; //Auxiliar para asignar colores intercalados
+
+		for(int i=0; i<100; i++)
+		{	
+			JButton casilla = new JButton();
+			
+			if(contador == 3)
+			{
+				contador = 0;
+			}
+			
+
+			switch (contador) 
+			{
+
+			case 0: 
+				casilla.setBackground(new java.awt.Color(255,0,77));
+				contador++;
+				listaCasillas.add(casilla);
+				break;
+				
+			case 1: 
+				casilla.setBackground(new java.awt.Color(0,154,255));
+				contador++;
+				listaCasillas.add(casilla);
+				break;
+				
+			case 2: 
+				casilla.setBackground(new java.awt.Color(0,255,77));
+				contador++;
+				listaCasillas.add(casilla);
+				break;
+			}
+		}
+		
+		//Agrega los botones de la lista al panel 2		
+		
+		for(int i=0 ; i<listaCasillas.size() ; i++) 
+		{	
+			panel2.add(listaCasillas.get(i));
+		}
+		
+
+		panel.add(panel2, organizadorBorde.CENTER);		
+		panel.add(panel3, organizadorBorde.EAST);
+		contenedor.add(panel);
+		panel3.setBackground(new java.awt.Color(255,0,77));
+
+		setVisible(true);
+		setResizable(false);
+		setSize(710,700);
+	
+	//Pone a cada boton a la escucha del evento
+		
+		for(int i=0; i<16; i++)
+		{	
+			listaCasillas.get(i).addMouseListener(this);
+		}
+				
+}//Fin constructor vista
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

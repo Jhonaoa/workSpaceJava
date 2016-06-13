@@ -1,0 +1,12 @@
+import java.net.Socket;
+
+public class Jugador implements Runnable{
+
+	private Socket conexion;
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

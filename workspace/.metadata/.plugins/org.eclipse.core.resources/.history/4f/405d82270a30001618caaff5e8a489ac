@@ -1,0 +1,49 @@
+import java.io.EOFException;
+ import java.io.IOException;
+ import java.io.ObjectInputStream;
+ import java.io.ObjectOutputStream;
+ import java.net.ServerSocket;
+ import java.net.Socket;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.awt.BorderLayout;
+ import java.awt.event.ActionEvent;
+ import java.awt.event.ActionListener;
+ import javax.swing.JFrame;
+ import javax.swing.JScrollPane;
+ import javax.swing.JTextArea;
+ import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+
+public class ServidorBuscaminas extends JFrame {
+	private JTextField campoIntroducir; // recibe como entrada un mensaje del usuario
+	private JTextArea areaPantalla; // muestra información al usuario
+	private ObjectOutputStream salida; // flujo de salida hacia el cliente
+	private ObjectInputStream entrada; // flujo de entrada del cliente
+	private ServerSocket servidor; // socket servidor
+	private Socket conexion; // conexión al cliente
+	private int contador =0; // contador del número de conexiones
+	private ExecutorService ejecutarJuego;
+	
+	public ServidorBuscaminas()
+	{
+		ejecutarJuego = Executors.newFixedThreadPool( 2 );
+		try {
+			servidor = new ServerSocket(12345,2);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+	}
+	
+	public void ejecutarServidor()
+	{
+		
+		
+		
+	}
+	
+	
+
+}

@@ -1,0 +1,175 @@
+
+public class Juego {
+	private Casilla[][] tablero;
+	
+	
+	public Juego()
+	{
+		tablero = new Casilla[10][10];
+		for (int i=0; i<10; i++)
+		{
+			for(int j=0; j<10; j++)
+			{
+				tablero[i][j] = new Casilla();
+				tablero[i][j].setTipo(0);
+			}
+	
+		}
+		
+		
+	}
+	
+	public void llenaOro()
+	{
+		int aleatorio1=0;
+		int aleatorio2=0;
+		int oro = 0;
+	
+		for(int i=0; oro <=20; i++)
+		{
+			aleatorio1 =(int) (Math.random()*10 + 0);
+			aleatorio2 =(int) (Math.random()*10 + 0);
+			if(	tablero[aleatorio1][aleatorio2].getTipo() == 0)
+			{
+				tablero[aleatorio1][aleatorio2].setTipo(-1);
+				oro++;
+
+			}
+		
+		}
+	}
+	
+	public void llenaNumeros()
+	{
+		
+	    for(int i=1; i<=8; i++)
+	    {
+	    	
+	    	if(tablero[i][0].getTipo() == -1)
+	    	{
+	    		tablero[i-1][0].setTipo( tablero[i-1][0].getTipo() + 1 );
+				
+				tablero[i-1][1].setTipo(   tablero[i-1][1].getTipo() + 1 );
+				
+				tablero[i][1].setTipo( tablero[i][1].getTipo() + 1);
+				
+				tablero[i+1][0].setTipo(   tablero[i+1][0].getTipo() + 1);
+				
+				tablero[i+1][1].setTipo(   tablero[i+1][1].getTipo() + 1);
+	    	}
+	    }
+		
+	    for(int i=1; i<=8; i++)
+	    {
+	    	
+	    	if(tablero[i][9].getTipo() == -1)
+	    	{
+	    		tablero[i-1][9].setTipo( tablero[i-1][9].getTipo() + 1 );
+				
+				tablero[i-1][8].setTipo(   tablero[i-1][8].getTipo() + 1 );
+				
+				tablero[i][8].setTipo( tablero[i][8].getTipo() + 1);
+				
+				tablero[i+1][8].setTipo(   tablero[i+1][8].getTipo() + 1);
+				
+				tablero[i+1][9].setTipo(   tablero[i+1][9].getTipo() + 1);
+	    	}
+	    }
+		 
+	    for(int i=1; i<=8; i++)
+	    {
+	    	
+	    	if(tablero[0][i].getTipo() == -1)
+	    	{
+	    		tablero[0][i-1].setTipo( tablero[0][i-1].getTipo() + 1 );
+				
+				tablero[1][i-1].setTipo(   tablero[1][i-1].getTipo() + 1 );
+				
+				tablero[1][i].setTipo( tablero[1][i].getTipo() + 1);
+				
+				tablero[0][i+1].setTipo(  tablero[0][i+1].getTipo() + 1);
+				
+				tablero[1][i+1].setTipo(   	tablero[1][i+1].getTipo() + 1);
+	    	}
+	    }
+	 
+	    for(int i=1; i<=8; i++)
+	    {
+	    	
+	    	if(tablero[9][i].getTipo() == -1)
+	    	{
+	    		tablero[9][i-1].setTipo(tablero[9][i-1].getTipo() + 1 );
+				
+				tablero[8][i-1].setTipo(   tablero[8][i-1].getTipo() + 1 );
+				
+				tablero[8][i].setTipo( tablero[8][i].getTipo() + 1);
+				
+				tablero[8][i+1].setTipo(  tablero[8][i+1].getTipo() + 1);
+				
+				tablero[9][i+1].setTipo(   tablero[9][i+1].getTipo() + 1);
+	    	}
+	    }
+	    
+	    if(tablero[0][0].getTipo() == -1)
+	    {
+			tablero[0][1].setTipo(   tablero[0][1].getTipo() + 1);
+			tablero[1][0].setTipo(   tablero[1][0].getTipo() + 1);
+			tablero[1][1].setTipo(   tablero[1][1].getTipo() + 1);
+	    }
+	    if(tablero[0][9].getTipo() == -1)
+	    {
+			tablero[0][8].setTipo(   tablero[0][8].getTipo() + 1);
+			tablero[1][8].setTipo(   tablero[1][8].getTipo() + 1);
+			tablero[1][9].setTipo(   tablero[1][9].getTipo() + 1);
+	    }
+	    if(tablero[9][0].getTipo() == -1)
+	    {
+			tablero[8][0].setTipo(   tablero[8][0].getTipo() + 1);
+			tablero[8][1].setTipo(   tablero[8][1].getTipo() + 1);
+			tablero[9][1].setTipo(   tablero[9][1].getTipo() + 1);
+	    }
+	    if(tablero[9][9].getTipo() == -1)
+	    {
+			tablero[9][8].setTipo(   tablero[9][8].getTipo() + 1);
+			tablero[8][8].setTipo(   tablero[8][8].getTipo() + 1);
+			tablero[8][9].setTipo(   tablero[8][9].getTipo() + 1);
+	    }
+		for(int i=1; i<9; i++)
+		{
+			for(int j=1; j<9; j++)
+			{
+				if(tablero[i][j].getTipo() == -1)
+				{
+					tablero[i-1][j-1].setTipo( tablero[i-1][j-1].getTipo() + 1 );
+					
+					tablero[i-1][j].setTipo(   tablero[i-1][j].getTipo() + 1 );
+					
+					tablero[i-1][j+1].setTipo( tablero[i-1][j+1].getTipo() + 1);
+					
+					tablero[i][j-1].setTipo(   tablero[i][j-1].getTipo() + 1);
+					
+					tablero[i][j+1].setTipo(   tablero[i][j+1].getTipo() + 1);
+					
+					tablero[i+1][j-1].setTipo( tablero[i+1][j-1].getTipo() + 1);
+					
+					tablero[i+1][j].setTipo(   tablero[i+1][j].getTipo() + 1);
+					
+					tablero[i+1][j+1].setTipo( tablero[i+1][j+1].getTipo() + 1);
+				}
+			}
+		}
+	}
+	
+	public void pintar()
+	{
+		for(int i=0; i<10; i++)
+		{
+			for(int j=0; j<10; j++)
+			{
+				System.out.print(tablero[i][j].getTipo() + "  ");
+			}
+			System.out.println();
+		}
+	}
+	
+}
