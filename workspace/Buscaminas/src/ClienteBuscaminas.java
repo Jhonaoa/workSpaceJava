@@ -14,37 +14,62 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import javax.swing.AbstractButton;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 public class ClienteBuscaminas extends JFrame implements Runnable {
 
 	
-		private JFrame contenedor  = new JFrame("Memory game");
-		private JPanel panel = new JPanel();
+		private JFrame contenedor;
+		private JTextArea informacion;
+		private JPanel panel,panel1;
 		private Juego control;
 		private ImageIcon imagen;
 		private Casilla[][] tablero;
 		private Socket conexion;
-		private ObjectOutputStream salida;
-		private ObjectInputStream entrada;
+		private Formatter salida;
+		private Scanner entrada;
 		private String host;
+		private EventosMouse eventos;
+		private Casilla casillaAux;
+		private int posX;
+		private int posY;
+		private String posicion;
+		private boolean miTurno;
+		private String miIdentidad;
+		private String mensaje;
+		
+		
 		
 		public ClienteBuscaminas(String host)
 		{
+			
+			contenedor  = new JFrame("Buscaminas");
+			informacion = new JTextArea(70,10);
+			posX = 0;
+			posY = 0;
+			posicion = "";
+			miTurno = true;
+			panel = new JPanel();
+			panel1 = new JPanel();
 			this.host = host;
 			control = new Juego();
-			
+			casillaAux = new Casilla();
+			eventos = new EventosMouse();
 			panel.setLayout(new GridLayout(10,10,5,5) );
-			
+			mensaje = "";
 			tablero = new Casilla[10][10];
+			
 			for (int i=0; i<10; i++)
 			{
 				for(int j=0; j<10; j++)
 				{
 					tablero[i][j] = new Casilla();
-					tablero[i][j].setTipo(0);
+					
 				}
 		
 			}
@@ -60,33 +85,43 @@ public class ClienteBuscaminas extends JFrame implements Runnable {
 					panel.add(tablero[i][j]);
 					//tablero[i][j].addMouseListener(this);
 					tablero[i][j].setBackground(new java.awt.Color(255,0,77));
-					
+					tablero[i][j].setUbicacionX(i);
+					tablero[i][j].setUbicacionY(j);
+					tablero[i][j].addMouseListener(eventos);
 				
-					System.out.print(" "+tablero[i][j].getTipo());
+					
 					
 					
 				}
 				System.out.println();
 			}
 		
+			informacion.setEditable(false);
+			panel1.add(informacion);
 			
-		contenedor.setSize(630,630);
+			panel1.setBounds(0,630,630,100);
+			
 		
-		contenedor.add(panel);
+		
+		
+		contenedor.setSize(700,700);
+		contenedor.add(new JScrollPane(panel1), BorderLayout.WEST);
+		contenedor.add(panel, BorderLayout.CENTER);
 		contenedor.setVisible(true);
 		
 		iniciarCliente();
 			
 		}
 		
-		public void iniciarCliente(){
+		public void iniciarCliente()
+		{
 			// se conecta al servidor, obtiene los flujos e inicia subproceso de salida
 			
 			try {
 				conexion = new Socket(InetAddress.getByName( host ), 12345 );
-		
-				entrada = new ObjectInputStream( conexion.getInputStream() );
-				salida = new ObjectOutputStream( conexion.getOutputStream() );
+				salida = new Formatter(conexion.getOutputStream());
+				entrada = new Scanner(conexion.getInputStream());
+				
 			}
 			catch ( IOException excepcionES ){
 				excepcionES.printStackTrace();
@@ -96,54 +131,213 @@ public class ClienteBuscaminas extends JFrame implements Runnable {
 		ExecutorService trabajador = Executors.newFixedThreadPool( 1 );
 		trabajador.execute( this ); // ejecuta el cliente
 		}
-
-		@Override
-		public void run() {
-			System.out.println("hablalo");
+		
+	
+		public void run() 
+		{
+			miIdentidad = entrada.nextLine();
 			
-		} // fin del método iniciarCliente
-
+			posicion = entrada.nextLine();
+			llenarTablero();
+			
+			miTurno = (miIdentidad.equals("0"));
+			
+			
+			
+			while(true)
+			{
+				
+				if(entrada.hasNextLine())
+				{
+					
+					procesarCasilla( entrada.nextLine());
+				}
+			
+			} 
 		
+		}
 		
-		/*public void mouseClicked(MouseEvent e)
+		public void llenarTablero()
+		{
+			int contador = 0;
+			int x =0;
+		
+			for(int i= 0; i<10;i++)
+			{
+				for(int j= 0; j<10;j++)
+				{
+					x=Integer.parseInt(String.valueOf(posicion.charAt(contador)));
+					tablero[i][j].setTipo(x);
+					contador++;
+				}
+			}
+			
+			for(int i=0; i<10; i++)
+			{
+				for(int j=0; j<10; j++)
+				{
+					System.out.print(tablero[i][j].getTipo() + "  ");
+				}
+				System.out.println();
+			}
+		}
+		
+		public void procesarCasilla(String s)
 		{
 			
+				if(s.equals("Jugador ha movido"))
+				{
+					
+					
+					posicion = entrada.nextLine();
+					posX = Integer.parseInt(String.valueOf(posicion.charAt(0)));
+					posY = Integer.parseInt(String.valueOf(posicion.charAt(1)));
+					System.out.println("cari"+posX);
+					System.out.println("cari"+posY);
+					setImagen(posX, posY);
+					
+					
+					
+				}
+				else if (s.equals("movimiento invalido"))
+				{
+					
+					mostrarMensaje(s);
+				}
+					
+				
+				else if(s.equals("El otro jugador movio, es tu turno"))
+				{
+					
+					posicion = entrada.nextLine();
+					posX = Integer.parseInt(String.valueOf(posicion.charAt(0)));
+					posY = Integer.parseInt(String.valueOf(posicion.charAt(1)));
+					setImagen(posX, posY);
+					mostrarMensaje(s);
+					miTurno = true;
+					
+				}
+				
+					
+					else
+						if(s.equals("eres el jugador 1"))
+						{
+							mostrarMensaje(s);
+						}
+				
+		
+		
+	}
+		
+		public void mostrarMensaje(final String m)
+		{
+			SwingUtilities.invokeLater(new Runnable() 
+			{
+				public void run()
+				{
+						// muestra la marca del jugador
+					    informacion.append( m+"\n" );
+				} // fin del mï¿½todo run
+			} // fin de la clase interna anï¿½nima
+					);
+		}
+		
+		
+		public void setImagen( int x, int y)
+		{
+			
+			imagen = new ImageIcon("src/images/"+tablero[x][y].getTipo()+".png");
+			tablero[x][y].setIcon(imagen);
 			
 			
+		}
+		
+		public void enviarInfo(String p)
+		{
+			if(miTurno)
+			{
+			System.out.println(p);
+			/*System.out.println(casillaAux.getTipo());
+			System.out.println(casillaAux.getEstado());*/
+			System.out.println(miIdentidad);
+			salida.format("%s\n",p);
+			salida.flush();
+			miTurno = false;
+			}
+		}
+		
+		public class EventosMouse implements MouseListener
+		{
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				posicion = "";
+				posX = ((Casilla) e.getComponent()).getUbicacionX();
+				posY = ((Casilla) e.getComponent()).getUbicacionY();
+				//System.out.println("hola");
+				if(miTurno)
+				{
+				mostrarMensaje("true"+miIdentidad);
+				
+				}else 
+					mostrarMensaje("false"+miIdentidad);
+				
+				
+				/*System.out.println(posX);
+				System.out.println(posY);*/
+				posicion += Integer.toString(posX)+Integer.toString(posY);
+				
+				enviarInfo(posicion);
+				
 			
-			// System.out.print(((Ficha) e.getComponent()).getID());
+				
+				/*for(int i = 0; i<10; i++)
+				{
+					for(int j = 0; j<9; j++)
+					{
+						System.out.print(tablero[i][j].getTipo()+" ");
+					}
+					System.out.println();
+				}*/
+			
+				
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
 			
 		}
 
-		@Override
-		public void mouseEntered(MouseEvent arg0) {
-			// TODO Auto-generated method stub
-			
-		}
+		
+		// fin del mï¿½todo iniciarCliente
 
-		@Override
-		public void mouseExited(MouseEvent arg0) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void mousePressed(MouseEvent arg0) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void mouseReleased(MouseEvent arg0) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void run() {
-			// TODO Auto-generated method stub
-			
-		}*/
+		
+		
+		
 		
 		
 }

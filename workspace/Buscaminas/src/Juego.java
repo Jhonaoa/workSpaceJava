@@ -31,7 +31,7 @@ public class Juego {
 			aleatorio2 =(int) (Math.random()*10 + 0);
 			if(	tablero[aleatorio1][aleatorio2].getTipo() == 0)
 			{
-				tablero[aleatorio1][aleatorio2].setTipo(-1);
+				tablero[aleatorio1][aleatorio2].setTipo(9);
 				oro++;
 
 			}
@@ -45,8 +45,9 @@ public class Juego {
 	    for(int i=1; i<=8; i++)
 	    {
 	    	
-	    	if(tablero[i][0].getTipo() == -1)
+	    	if(tablero[i][0].getTipo() == 9)
 	    	{
+	    		
 	    		tablero[i-1][0].setTipo( tablero[i-1][0].getTipo() + 1 );
 				
 				tablero[i-1][1].setTipo(   tablero[i-1][1].getTipo() + 1 );
@@ -62,7 +63,7 @@ public class Juego {
 	    for(int i=1; i<=8; i++)
 	    {
 	    	
-	    	if(tablero[i][9].getTipo() == -1)
+	    	if(tablero[i][9].getTipo() == 9)
 	    	{
 	    		tablero[i-1][9].setTipo( tablero[i-1][9].getTipo() + 1 );
 				
@@ -79,7 +80,7 @@ public class Juego {
 	    for(int i=1; i<=8; i++)
 	    {
 	    	
-	    	if(tablero[0][i].getTipo() == -1)
+	    	if(tablero[0][i].getTipo() == 9)
 	    	{
 	    		tablero[0][i-1].setTipo( tablero[0][i-1].getTipo() + 1 );
 				
@@ -96,7 +97,7 @@ public class Juego {
 	    for(int i=1; i<=8; i++)
 	    {
 	    	
-	    	if(tablero[9][i].getTipo() == -1)
+	    	if(tablero[9][i].getTipo() == 9)
 	    	{
 	    		tablero[9][i-1].setTipo(tablero[9][i-1].getTipo() + 1 );
 				
@@ -110,25 +111,25 @@ public class Juego {
 	    	}
 	    }
 	    
-	    if(tablero[0][0].getTipo() == -1)
+	    if(tablero[0][0].getTipo() == 9)
 	    {
 			tablero[0][1].setTipo(   tablero[0][1].getTipo() + 1);
 			tablero[1][0].setTipo(   tablero[1][0].getTipo() + 1);
 			tablero[1][1].setTipo(   tablero[1][1].getTipo() + 1);
 	    }
-	    if(tablero[0][9].getTipo() == -1)
+	    if(tablero[0][9].getTipo() == 9)
 	    {
 			tablero[0][8].setTipo(   tablero[0][8].getTipo() + 1);
 			tablero[1][8].setTipo(   tablero[1][8].getTipo() + 1);
 			tablero[1][9].setTipo(   tablero[1][9].getTipo() + 1);
 	    }
-	    if(tablero[9][0].getTipo() == -1)
+	    if(tablero[9][0].getTipo() == 9)
 	    {
 			tablero[8][0].setTipo(   tablero[8][0].getTipo() + 1);
 			tablero[8][1].setTipo(   tablero[8][1].getTipo() + 1);
 			tablero[9][1].setTipo(   tablero[9][1].getTipo() + 1);
 	    }
-	    if(tablero[9][9].getTipo() == -1)
+	    if(tablero[9][9].getTipo() == 9)
 	    {
 			tablero[9][8].setTipo(   tablero[9][8].getTipo() + 1);
 			tablero[8][8].setTipo(   tablero[8][8].getTipo() + 1);
@@ -138,7 +139,7 @@ public class Juego {
 		{
 			for(int j=1; j<9; j++)
 			{
-				if(tablero[i][j].getTipo() == -1)
+				if(tablero[i][j].getTipo() == 9)
 				{
 					tablero[i-1][j-1].setTipo( tablero[i-1][j-1].getTipo() + 1 );
 					
